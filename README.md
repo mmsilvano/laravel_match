@@ -1,6 +1,6 @@
 # LaravelMatch
 
-Proof-of-concept dating-style app built with Laravel 13, PHP 8.3, MySQL, Blade, Tailwind CSS v4, Vite, Laravel Breeze, Pest.
+Proof-of-concept dating-style app built with Laravel 13, PHP 8.3, MySQL, Blade, Tailwind CSS v4, Vite, Laravel Breeze, Laravel Sail, Pest.
 
 ## Stack
 
@@ -11,29 +11,89 @@ Proof-of-concept dating-style app built with Laravel 13, PHP 8.3, MySQL, Blade, 
 - Tailwind CSS v4
 - Vite
 - Laravel Breeze
+- Laravel Sail
 - Pest
 
-## Local Install
+## Sail Setup
+
+Recommended if you want Docker-based local setup.
 
 ### 1. Clone repo
 
 ```bash
-git clone <your-repo-url> laravelmatch
+rtk git clone <your-repo-url> laravelmatch
 cd laravelmatch
 ```
 
-### 2. Install deps
+### 2. Install PHP deps
 
 ```bash
-composer install
-npm install
+rtk composer install
 ```
 
 ### 3. Configure env
 
 ```bash
 cp .env.example .env
-php artisan key:generate
+```
+
+Use Sail DB settings in `.env`:
+
+```env
+APP_URL=http://localhost
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravelmatch
+DB_USERNAME=root
+DB_PASSWORD=admin123
+```
+
+### 4. Start Sail
+
+```bash
+rtk ./vendor/bin/sail up -d
+rtk ./vendor/bin/sail artisan key:generate
+```
+
+### 5. Install frontend deps + build
+
+```bash
+rtk ./vendor/bin/sail npm install
+rtk ./vendor/bin/sail npm run build
+```
+
+### 6. Migrate + seed
+
+```bash
+rtk ./vendor/bin/sail artisan migrate:fresh --seed
+```
+
+Open:
+
+- `http://localhost`
+
+## Local Install
+
+### 1. Clone repo
+
+```bash
+rtk git clone <your-repo-url> laravelmatch
+cd laravelmatch
+```
+
+### 2. Install deps
+
+```bash
+rtk composer install
+rtk npm install
+```
+
+### 3. Configure env
+
+```bash
+cp .env.example .env
+rtk php artisan key:generate
 ```
 
 Update `.env` for local MySQL:
@@ -44,7 +104,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=laravelmatch
 DB_USERNAME=root
-DB_PASSWORD=
+DB_PASSWORD=admin123
 ```
 
 Create DB first:
@@ -56,19 +116,19 @@ CREATE DATABASE laravelmatch;
 ### 4. Build assets
 
 ```bash
-npm run build
+rtk npm run build
 ```
 
 ### 5. Migrate + seed
 
 ```bash
-php artisan migrate:fresh --seed
+rtk php artisan migrate:fresh --seed
 ```
 
 ### 6. Run app
 
 ```bash
-php artisan serve
+rtk php artisan serve
 ```
 
 Open:
@@ -79,11 +139,18 @@ If using `php artisan serve`, keep `APP_URL=http://localhost:8000` in `.env`.
 
 ## One-shot Setup
 
-Project ships with shell setup script:
+Project ships with shell setup script for non-Sail local setup:
+
+Before run `setup.sh`, set DB username/password in `.env`:
+
+```env
+DB_USERNAME=root
+DB_PASSWORD=admin123
+```
 
 ```bash
-chmod +x setup.sh
-./setup.sh
+rtk chmod +x setup.sh
+rtk ./setup.sh
 ```
 
 ## Demo Account
@@ -98,19 +165,25 @@ Seeder also prints demo login after `php artisan migrate:fresh --seed`.
 Run full dev stack:
 
 ```bash
-composer run dev
+rtk composer run dev
 ```
 
 Run tests:
 
 ```bash
-php artisan test --compact
+rtk php artisan test --compact
+```
+
+Run tests in Sail:
+
+```bash
+rtk ./vendor/bin/sail artisan test --compact
 ```
 
 Run formatter:
 
 ```bash
-vendor/bin/pint --dirty --format agent
+rtk vendor/bin/pint --dirty --format agent
 ```
 
 ## CI/CD
@@ -125,11 +198,11 @@ GitHub Actions workflow in `.github/workflows/ci-cd.yml` runs:
 If frontend changes not visible:
 
 ```bash
-npm run build
+rtk npm run build
 ```
 
 If Vite manifest error appears:
 
 ```bash
-npm run build
+rtk npm run build
 ```
