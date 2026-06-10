@@ -1,6 +1,6 @@
 @props(['conversations', 'activeConversation' => null])
 
-<div class="rounded-3xl border border-gray-200 bg-white shadow-sm">
+<div class="rounded-3xl border border-gray-200 bg-white p-2 shadow-sm">
     <div class="border-b border-gray-200 px-5 py-4">
         <h2 class="text-lg font-semibold text-gray-900">Messages</h2>
         <p class="mt-1 text-sm text-gray-500">Your conversations sorted by latest activity.</p>
@@ -20,9 +20,7 @@
                     'flex items-center gap-4 px-5 py-4 transition hover:bg-gray-50',
                     'bg-pink-50/70' => $activeConversation?->is($conversation),
                 ])">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-sm font-semibold text-gray-700">
-                        {{ str($participant->name)->explode(' ')->map(fn ($part) => str($part)->substr(0, 1))->take(2)->join('') }}
-                    </div>
+                    <img src="{{ $participant->profilePhotoUrl() }}" alt="{{ $participant->name }}" class="h-12 w-12 rounded-full object-cover">
 
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center justify-between gap-3">

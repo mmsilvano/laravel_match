@@ -22,10 +22,11 @@ class DatabaseSeeder extends Seeder
         $sendMessage = app(SendMessageAction::class);
 
         $demoUser = User::factory()->create([
-            'name' => 'Demo User',
+            'name' => 'Daniel Hart',
             'email' => 'demo@laravelmatch.test',
             'age' => 29,
             'bio' => 'Builder by day, ramen hunter by night. Looking for easy conversation and great chemistry.',
+            'avatar_url' => 'https://randomuser.me/api/portraits/men/32.jpg',
         ]);
 
         $members = User::factory(20)->create();

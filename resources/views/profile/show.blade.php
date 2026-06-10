@@ -2,9 +2,12 @@
     <div class="mx-auto max-w-3xl">
         <div class="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
             <div class="flex items-start justify-between gap-4">
-                <div>
+                <div class="flex items-center gap-5">
+                    <img src="{{ $user->profilePhotoUrl() }}" alt="{{ $user->name }}" class="h-24 w-24 rounded-3xl object-cover shadow-sm">
+                    <div>
                     <p class="text-sm font-medium uppercase tracking-[0.2em] text-pink-600">Profile</p>
                     <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900">{{ $user->name }}</h1>
+                    </div>
                 </div>
                 <a href="{{ route('profile.edit') }}" class="rounded-2xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">Edit</a>
             </div>

@@ -30,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'age',
         'bio',
+        'avatar_url',
     ];
 
     /**
@@ -56,6 +57,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->whereKeyNot($user);
     }
 
+    public function profilePhotoUrl(): string
+    {
+        if (filled($this->avatar_url)) {
+            return $this->avatar_url;
+        }
+
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&background=FCE7F3&color=BE185D&size=256';
+    }
+
     /**
      * @return array<string, string>
      */
@@ -64,6 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'age' => 'integer',
             'bio' => 'string',
+            'avatar_url' => 'string',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'deleted_at' => 'datetime',

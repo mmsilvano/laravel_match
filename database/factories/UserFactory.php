@@ -17,6 +17,32 @@ class UserFactory extends Factory
     protected static ?string $password;
 
     /**
+     * @var list<array{name: string, avatar_url: string}>
+     */
+    private array $femaleProfiles = [
+        ['name' => 'Ava Brooks', 'avatar_url' => 'https://randomuser.me/api/portraits/women/1.jpg'],
+        ['name' => 'Mia Bennett', 'avatar_url' => 'https://randomuser.me/api/portraits/women/2.jpg'],
+        ['name' => 'Lily Foster', 'avatar_url' => 'https://randomuser.me/api/portraits/women/3.jpg'],
+        ['name' => 'Sofia Reed', 'avatar_url' => 'https://randomuser.me/api/portraits/women/4.jpg'],
+        ['name' => 'Chloe Griffin', 'avatar_url' => 'https://randomuser.me/api/portraits/women/5.jpg'],
+        ['name' => 'Isla Morgan', 'avatar_url' => 'https://randomuser.me/api/portraits/women/6.jpg'],
+        ['name' => 'Harper Collins', 'avatar_url' => 'https://randomuser.me/api/portraits/women/7.jpg'],
+        ['name' => 'Grace Simmons', 'avatar_url' => 'https://randomuser.me/api/portraits/women/8.jpg'],
+        ['name' => 'Nora Bailey', 'avatar_url' => 'https://randomuser.me/api/portraits/women/9.jpg'],
+        ['name' => 'Ella Sanders', 'avatar_url' => 'https://randomuser.me/api/portraits/women/10.jpg'],
+        ['name' => 'Zoey Carter', 'avatar_url' => 'https://randomuser.me/api/portraits/women/11.jpg'],
+        ['name' => 'Ruby Bennett', 'avatar_url' => 'https://randomuser.me/api/portraits/women/12.jpg'],
+        ['name' => 'Hannah Cooper', 'avatar_url' => 'https://randomuser.me/api/portraits/women/13.jpg'],
+        ['name' => 'Clara Dawson', 'avatar_url' => 'https://randomuser.me/api/portraits/women/14.jpg'],
+        ['name' => 'Layla Hughes', 'avatar_url' => 'https://randomuser.me/api/portraits/women/68.jpg'],
+        ['name' => 'Stella Reed', 'avatar_url' => 'https://randomuser.me/api/portraits/women/16.jpg'],
+        ['name' => 'Lucy Ward', 'avatar_url' => 'https://randomuser.me/api/portraits/women/17.jpg'],
+        ['name' => 'Aria Bell', 'avatar_url' => 'https://randomuser.me/api/portraits/women/18.jpg'],
+        ['name' => 'Maya Flores', 'avatar_url' => 'https://randomuser.me/api/portraits/women/19.jpg'],
+        ['name' => 'Sadie Price', 'avatar_url' => 'https://randomuser.me/api/portraits/women/20.jpg'],
+    ];
+
+    /**
      * @var list<string>
      */
     private array $bios = [
@@ -43,16 +69,14 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $profile = fake()->randomElement($this->femaleProfiles);
+
         return [
-            'name' => fake()->randomElement([
-                'Ava Brooks', 'Liam Carter', 'Mia Bennett', 'Noah Foster', 'Emma Hayes',
-                'Elijah Cooper', 'Sofia Reed', 'Lucas Ward', 'Chloe Griffin', 'Mason Price',
-                'Isla Morgan', 'Ethan Bell', 'Harper Collins', 'James Rivera', 'Grace Simmons',
-                'Logan Hughes', 'Nora Bailey', 'Henry Flores', 'Ella Sanders', 'Jack Bennett',
-            ]),
+            'name' => $profile['name'],
             'email' => fake()->unique()->safeEmail(),
             'age' => fake()->numberBetween(22, 45),
             'bio' => fake()->randomElement($this->bios),
+            'avatar_url' => $profile['avatar_url'],
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
