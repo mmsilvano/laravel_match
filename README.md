@@ -44,9 +44,9 @@ APP_URL=http://localhost
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=laravelmatch
-DB_USERNAME=root
-DB_PASSWORD=admin123
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
 ```
 
 ### 4. Start Sail
