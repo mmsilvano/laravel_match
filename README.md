@@ -73,20 +73,17 @@ php artisan serve
 
 Open:
 
-- `http://127.0.0.1:8000`
+- `http://localhost:8000`
 
-If using Herd / Valet / custom local vhost, keep `APP_URL=http://laravelmatch.local` and open:
-
-- `http://laravelmatch.local`
+If using `php artisan serve`, keep `APP_URL=http://localhost:8000` in `.env`.
 
 ## One-shot Setup
 
-Project also ships with Composer setup script:
+Project ships with shell setup script:
 
 ```bash
-composer run setup
-php artisan migrate:fresh --seed
-php artisan serve
+chmod +x setup.sh
+./setup.sh
 ```
 
 ## Demo Account
