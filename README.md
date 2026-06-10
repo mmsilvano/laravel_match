@@ -21,14 +21,14 @@ Recommended if you want Docker-based local setup.
 ### 1. Clone repo
 
 ```bash
-rtk git clone <your-repo-url> laravelmatch
+git clone <your-repo-url> laravelmatch
 cd laravelmatch
 ```
 
 ### 2. Install PHP deps
 
 ```bash
-rtk composer install
+composer install
 ```
 
 ### 3. Configure env
@@ -52,21 +52,21 @@ DB_PASSWORD=admin123
 ### 4. Start Sail
 
 ```bash
-rtk ./vendor/bin/sail up -d
-rtk ./vendor/bin/sail artisan key:generate
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan key:generate
 ```
 
 ### 5. Install frontend deps + build
 
 ```bash
-rtk ./vendor/bin/sail npm install
-rtk ./vendor/bin/sail npm run build
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
 ```
 
 ### 6. Migrate + seed
 
 ```bash
-rtk ./vendor/bin/sail artisan migrate:fresh --seed
+./vendor/bin/sail artisan migrate:fresh --seed
 ```
 
 Open:
@@ -78,22 +78,22 @@ Open:
 ### 1. Clone repo
 
 ```bash
-rtk git clone <your-repo-url> laravelmatch
+git clone <your-repo-url> laravelmatch
 cd laravelmatch
 ```
 
 ### 2. Install deps
 
 ```bash
-rtk composer install
-rtk npm install
+composer install
+npm install
 ```
 
 ### 3. Configure env
 
 ```bash
 cp .env.example .env
-rtk php artisan key:generate
+php artisan key:generate
 ```
 
 Update `.env` for local MySQL:
@@ -116,19 +116,19 @@ CREATE DATABASE laravelmatch;
 ### 4. Build assets
 
 ```bash
-rtk npm run build
+npm run build
 ```
 
 ### 5. Migrate + seed
 
 ```bash
-rtk php artisan migrate:fresh --seed
+php artisan migrate:fresh --seed
 ```
 
 ### 6. Run app
 
 ```bash
-rtk php artisan serve
+php artisan serve
 ```
 
 Open:
@@ -149,8 +149,8 @@ DB_PASSWORD=admin123
 ```
 
 ```bash
-rtk chmod +x setup.sh
-rtk ./setup.sh
+chmod +x setup.sh
+./setup.sh
 ```
 
 ## Demo Account
@@ -165,25 +165,25 @@ Seeder also prints demo login after `php artisan migrate:fresh --seed`.
 Run full dev stack:
 
 ```bash
-rtk composer run dev
+composer run dev
 ```
 
 Run tests:
 
 ```bash
-rtk php artisan test --compact
+php artisan test --compact
 ```
 
 Run tests in Sail:
 
 ```bash
-rtk ./vendor/bin/sail artisan test --compact
+./vendor/bin/sail artisan test --compact
 ```
 
 Run formatter:
 
 ```bash
-rtk vendor/bin/pint --dirty --format agent
+vendor/bin/pint --dirty --format agent
 ```
 
 ## CI/CD
@@ -198,11 +198,11 @@ GitHub Actions workflow in `.github/workflows/ci-cd.yml` runs:
 If frontend changes not visible:
 
 ```bash
-rtk npm run build
+npm run build
 ```
 
 If Vite manifest error appears:
 
 ```bash
-rtk npm run build
+npm run build
 ```
