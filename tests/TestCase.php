@@ -13,7 +13,10 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $compiledViewPath = storage_path('framework/testing/views');
+        $compiledViewPath = (string) env(
+            'VIEW_COMPILED_PATH',
+            sys_get_temp_dir().DIRECTORY_SEPARATOR.'laravelmatch-testing-views',
+        );
 
         File::ensureDirectoryExists($compiledViewPath);
 
