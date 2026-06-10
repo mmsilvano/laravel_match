@@ -11,6 +11,10 @@ class CreateConversationAction
 {
     public function execute(User $initiator, User $recipient): Conversation
     {
+        if ($initiator->is($recipient)) {
+            abort(422, 'Cannot create conversation with same user.');
+        }
+
         $orderedIds = [$initiator->getKey(), $recipient->getKey()];
         sort($orderedIds);
 

@@ -49,6 +49,8 @@ class ConversationController extends Controller
         /** @var User $user */
         $user = $request->user();
 
+        abort_if($conversation->user_one_id === $conversation->user_two_id, 404);
+
         $conversation->load(['userOne', 'userTwo']);
 
         $conversation->messages()
@@ -58,10 +60,8 @@ class ConversationController extends Controller
 
         $messages = $conversation->messages()
             ->with('sender')
-            ->latest('created_at')
+            ->orderBy('created_at')
             ->simplePaginate(15);
-
-        $messages->setCollection($messages->getCollection()->reverse()->values());
 
         return view('conversations.show', [
             'conversations' => $this->conversationList($user),
@@ -73,6 +73,7 @@ class ConversationController extends Controller
     private function conversationList(User $user): LengthAwarePaginator
     {
         return Conversation::query()
+            ->whereColumn('user_one_id', '!=', 'user_two_id')
             ->where(fn ($query) => $query
                 ->where('user_one_id', $user->getKey())
                 ->orWhere('user_two_id', $user->getKey()))

@@ -17,6 +17,7 @@ class DashboardController extends Controller
         $user = $request->user();
 
         $recentConversations = Conversation::query()
+            ->whereColumn('user_one_id', '!=', 'user_two_id')
             ->where(fn ($query) => $query
                 ->where('user_one_id', $user->getKey())
                 ->orWhere('user_two_id', $user->getKey()))
@@ -27,7 +28,12 @@ class DashboardController extends Controller
 
         return view('dashboard', [
             'memberCount' => User::query()->excluding($user)->count(),
-            'conversationCount' => $user->conversations()->count(),
+            'conversationCount' => Conversation::query()
+                ->whereColumn('user_one_id', '!=', 'user_two_id')
+                ->where(fn ($query) => $query
+                    ->where('user_one_id', $user->getKey())
+                    ->orWhere('user_two_id', $user->getKey()))
+                ->count(),
             'sentMessageCount' => $user->sentMessages()->count(),
             'recentConversations' => $recentConversations,
         ]);
